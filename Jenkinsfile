@@ -4,6 +4,7 @@ pipeline {
     stages {
         // 1. Checkout aşaması: Kaynak kodları alıyoruz
         stage('Checkout') {
+            agent any // Checkout işlemi yapılacak herhangi bir node
             steps {
                 checkout scm
             }
@@ -11,7 +12,7 @@ pipeline {
 
         // 2. Docker Build Aşaması
         stage('Build Docker Image') {
-            agent any
+            agent any // Docker build için herhangi bir node
             steps {
                 script {
                     // Dockerfile bulunduğu dizinde imajı oluşturuyoruz
@@ -24,16 +25,13 @@ pipeline {
         stage('Deploy Pod to Kubernetes') {
             agent {
                 kubernetes {
-                    // Kubernetes Cloud'da tanımlı olan pod template'inin label'ı
-                    label 'custom-agent'  
-                    // Workspace'deki pod.yaml dosyasını kullanarak pod manifestini yükler
+                    label 'custom-agent' // Kubernetes pod label'ı
                     yamlFile 'pod.yaml'
                 }
             }
             steps {
-                echo "kubectl get nodes"
                 echo 'Deploying pod to Kubernetes...'
-                // pod.yaml dosyasındaki tanıma göre pod deploy ediliyor
+                // Pod manifest dosyasına göre pod deploy ediyoruz
                 sh 'kubectl apply -f pod.yaml'
                 // Pod durumunu kontrol ediyoruz
                 sh 'kubectl get pods'
