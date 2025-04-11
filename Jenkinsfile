@@ -4,7 +4,7 @@ pipeline {
     stages {
         // 1. Checkout aşaması: Kaynak kodları alıyoruz
         stage('Checkout') {
-            agent any
+            //agent any
             steps {
                 checkout scm
             }
