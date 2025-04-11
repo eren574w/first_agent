@@ -11,7 +11,7 @@ pipeline {
         // 1. Checkout aşaması: Docker işlemleri yapacak agent üzerinde çalıştırılır
         stage('Checkout') {
             agent { 
-                label 'docker-agent-python' 
+                label 'docker-agent-alpine' 
             }
             steps {
                 // Kaynak kodları repodan alıyoruz
