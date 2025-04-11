@@ -22,7 +22,7 @@ pipeline {
         // 2. Docker İmaj Build Aşaması
         stage('Build Docker Image') {
             agent { 
-                label 'docker-agent-python' 
+                label 'docker-agent-alpine' 
             }
             steps {
                 echo 'Building Docker image...'
