@@ -8,6 +8,7 @@ pipeline {
                 script {
                     // Dockerfile bulunduğu dizinde imajı oluşturuyoruz
                     sh 'docker build -t my-web-app .'  // Burada my-web-app imajını oluşturuyoruz
+                    sh "docker images "
                 }
             }
         }
