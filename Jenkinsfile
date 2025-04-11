@@ -17,6 +17,7 @@ pipeline {
                 script {
                     // Dockerfile bulunduğu dizinde imajı oluşturuyoruz
                     sh 'docker build -t my-web-app .'
+                    sh "docker images"
                 }
             }
         }
@@ -30,6 +31,7 @@ pipeline {
                 }
             }
             steps {
+                sh "kubectl get nodes"
                 echo 'Deploying pod to Kubernetes...'
                 // Pod manifest dosyasına göre pod deploy ediyoruz
                 sh 'kubectl apply -f pod.yaml'
