@@ -12,14 +12,6 @@ pipeline {
             }
         }
 
-        stage('Test Kubeconfig') {
-            steps {
-                script {
-                    sh 'kubectl config view'
-                    sh 'kubectl get nodes'
-                }
-            }
-        }
         stage('Deploy Pod') {
             steps {
                 script {
@@ -28,6 +20,14 @@ pipeline {
                 }
             }
         }
+    }
 
+    post {
+        success {
+            echo 'Pipeline başarıyla tamamlandı!'
+        }
+        failure {
+            echo 'Pipeline hatalı tamamlandı!'
+        }
     }
 }
