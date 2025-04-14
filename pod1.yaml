@@ -7,11 +7,6 @@ spec:
   containers:
   - name: jnlp
     image: jenkins/inbound-agent:latest
-    # Bu argümanlar Jenkins tarafından otomatik olarak doldurulacak
     args: ['$(JENKINS_SECRET)', '$(JENKINS_NAME)']
     tty: true
-  - name: custom-agent
-    image: jenkins/inbound-agent:latest
-    # Pipeline sırasında custom container’da komutları çalıştırabilmek için basitçe aktif tutuyoruz
-    command: ["sleep", "3600"]
-    tty: true
+
