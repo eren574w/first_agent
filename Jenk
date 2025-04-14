@@ -2,7 +2,6 @@ pipeline {
     agent none
 
     stages {
-        // 1. Checkout: Kodu çekiyoruz
         stage('Checkout') {
             agent any
             steps {
@@ -10,7 +9,6 @@ pipeline {
             }
         }
 
-        // 2. Docker Build: Docker imajını oluşturuyoruz
         stage('Build Docker Image') {
             agent any
             steps {
@@ -21,17 +19,15 @@ pipeline {
             }
         }
 
-        // 3. Deploy to Kubernetes: Tek pod (tek container) üzerinde işimizi yürüteceğiz
         stage('Deploy Pod to Kubernetes') {
             agent {
                 kubernetes {
-                    label 'slave'          // pod.yaml dosyamızdaki label ile uyumlu
+                    label 'slave'          // pod1.yaml dosyanızdaki label ile uyumlu
                     yamlFile 'pod1.yaml'
                 }
             }
             steps {
                 echo 'Agent pod oluşturuldu. Komutlar jnlp container içinde çalışıyor...'
-                // Bu aşamada, pod otomatik olarak oluşturulduğundan ekstra kubectl apply gerekmiyor.
                 sh 'kubectl get nodes'
                 sh 'kubectl get pods'
             }
