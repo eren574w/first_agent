@@ -26,7 +26,7 @@ pipeline {
         stage('Deploy Pod to Kubernetes') {
             agent {
                 kubernetes {
-                    label 'custom-agent' // Kubernetes pod label'ı
+                    label 'slave' // Kubernetes pod label'ı
                     yamlFile 'pod.yaml'
                 }
             }
