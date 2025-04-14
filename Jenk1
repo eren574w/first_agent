@@ -8,5 +8,14 @@ pipeline {
                 checkout scm
             }
         }
+
+        stage('List Files') {
+            agent any
+            steps {
+                script {
+                    sh 'ls -l'
+                }
+            }
+        }
     }
 }
