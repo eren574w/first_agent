@@ -1,10 +1,11 @@
 pipeline {
-    agent any
+    agent none
 
     stages {
-        stage('SCM Checkout') {
+        stage('Checkout') {
+            agent any
             steps {
-                echo 'GitHub repository and Jenk1 file detected!'
+                checkout scm
             }
         }
     }
