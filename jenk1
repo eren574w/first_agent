@@ -1,11 +1,8 @@
 pipeline {
-    agent any
-
     stages {
         stage('Checkout') {
             steps {
-                git branch: 'main', 
-                    url: 'https://github.com/eren574w/first_agent.git'
+                git branch: 'main', url: 'https://github.com/eren574w/first_agent.git'
             }
         }
     }
