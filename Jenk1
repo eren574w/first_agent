@@ -20,5 +20,14 @@ pipeline {
                 }
             }
         }
+        stage('Deploy Pod') {
+            steps {
+                script {
+                    sh 'kubectl apply -f pod.yaml'
+                    sh 'kubectl get pods'
+                }
+            }
+        }
+
     }
 }
