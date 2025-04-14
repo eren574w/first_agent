@@ -2,40 +2,38 @@ pipeline {
     agent none
 
     stages {
-        // 1. Checkout aşaması: Kaynak kodları alıyoruz
+        // 1. Checkout aşaması: Kaynak kodları çekiyoruz.
         stage('Checkout') {
-            agent any // Checkout işlemi yapılacak herhangi bir node
+            agent any
             steps {
                 checkout scm
             }
         }
 
-        // 2. Docker Build Aşaması
+        // 2. Docker Build Aşaması: Docker imajı oluşturuluyor.
         stage('Build Docker Image') {
-            agent any // Docker build için herhangi bir node
+            agent any
             steps {
                 script {
-                    // Dockerfile bulunduğu dizinde imajı oluşturuyoruz
                     sh 'docker build -t my-web-app .'
-                    sh "docker images"
+                    sh 'docker images'
                 }
             }
         }
 
-        // 3. Kubernetes Deploy Aşaması
+        // 3. Kubernetes Deploy Aşaması: Jenkins agent pod üzerinden komutlar çalıştırılıyor.
         stage('Deploy Pod to Kubernetes') {
             agent {
                 kubernetes {
-                    label 'slave' // Kubernetes pod label'ı
-                    yamlFile 'pod.yaml'
+                    label 'slave'          // YAML dosyasında "jenkins: slave" etiketi kullanılmış
+                    yamlFile 'pod1.yaml'
                 }
             }
             steps {
-                sh "kubectl get nodes"
-                echo 'Deploying pod to Kubernetes...'
-                // Pod manifest dosyasına göre pod deploy ediyoruz
-                sh 'kubectl apply -f pod.yaml'
-                // Pod durumunu kontrol ediyoruz
+                echo 'Agent pod oluşturuldu. Komutlar container içinde çalışıyor...'
+                // Burada artık jnlp container üzerinden Jenkins ile iletişim sağlanıyor;
+                // ek pod oluşturma işlemi yapmaya gerek yok.
+                sh 'kubectl get nodes'
                 sh 'kubectl get pods'
             }
         }
@@ -43,10 +41,10 @@ pipeline {
 
     post {
         success {
-            echo 'Pipeline completed successfully!'
+            echo 'Pipeline başarıyla tamamlandı!'
         }
         failure {
-            echo 'Pipeline failed!'
+            echo 'Pipeline hatalı tamamlandı!'
         }
     }
 }
