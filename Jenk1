@@ -1,19 +1,22 @@
 pipeline {
-    agent none
+    agent any
+
+    environment {
+        KUBECONFIG = credentials('vagrant-kubeconfig')
+    }
 
     stages {
         stage('Checkout') {
-            agent any
             steps {
                 checkout scm
             }
         }
 
-        stage('List Files') {
-            agent any
+        stage('Test Kubeconfig') {
             steps {
                 script {
-                    sh 'ls -l'
+                    sh 'kubectl config view'
+                    sh 'kubectl get nodes'
                 }
             }
         }
