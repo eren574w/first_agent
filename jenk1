@@ -1,8 +1,10 @@
 pipeline {
+    agent any
+
     stages {
-        stage('Checkout') {
+        stage('SCM Checkout') {
             steps {
-                git branch: 'main', url: 'https://github.com/eren574w/first_agent.git'
+                echo 'GitHub repository and Jenk1 file detected!'
             }
         }
     }
