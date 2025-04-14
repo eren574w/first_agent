@@ -2,10 +2,11 @@ apiVersion: v1
 kind: Pod
 metadata:
   labels:
-    jenkins: custom-agent
+    jenkins: slave
 spec:
   containers:
   - name: custom-agent
     image: jenkins/inbound-agent:latest
     ports:
-      - containerPort: 8080
+      - containerPort: 4040
+
