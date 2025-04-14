@@ -5,7 +5,7 @@ metadata:
     jenkins: slave
 spec:
   containers:
-  - name: jnlp
+  - name: pub1
     image: jenkins/inbound-agent:latest
     args: ['$(JENKINS_SECRET)', '$(JENKINS_NAME)']
     tty: true
