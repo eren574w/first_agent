@@ -1,12 +1,16 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: custom-agent-pod  # Eksik olan name alanını ekledik!
+  name: custom-agent-pod
   labels:
     jenkins: slave
 spec:
   containers:
   - name: custom-agent
     image: jenkins/inbound-agent:latest
+    args:
+    - /bin/sh
+    - -c
+    - "sleep infinity"
     ports:
       - containerPort: 4040
