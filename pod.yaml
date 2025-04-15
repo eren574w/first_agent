@@ -5,6 +5,10 @@ metadata:
 spec:
   containers:
   - name: custom-agent
-    image: nginx
+    image: jenkins/inbound-agent:latest
+    args:
+    - /bin/sh
+    - -c
+    - "sleep infinity"
     ports:
       - containerPort: 4040
