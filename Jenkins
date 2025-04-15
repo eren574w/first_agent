@@ -20,6 +20,12 @@ pipeline {
                 }
             }
         }
+
+        stage('Kontrol Noktası') {
+            steps {
+                input message: 'Devam etmek için OK tuşuna bas'
+            }
+        }
     }
 
     post {
