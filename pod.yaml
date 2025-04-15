@@ -5,7 +5,7 @@ metadata:
 spec:
   containers:
   - name: custom-agent
-    image: jenkins/inbound-agent:latest
+    image: nginx
     args:
     - /bin/sh
     - -c
